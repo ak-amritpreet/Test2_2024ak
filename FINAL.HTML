@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    table {
+      text-align: center;
+      margin-left: 10%;
+      margin-right: 50%;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    input,
+    button {
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .error {
+      border: 1px solid red;
+    }
+
+    #error-message {
+      color: red;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="text-align: center;">
+    <h1>BOOKING YOUR PLACE FOR YOUR DINNER!</h1>
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" size="22" onblur="Validate_Name()">
+
+    <label for="phone">Phone Number</label>
+    <input type="text" id="phone" size="22" onblur="Validate_PhoneNumber()">
+    <br>
+  </div>
+  <br>
+  <div style="margin-left: 10%;">
+    <h2>Select a time</h2>
+    <input type="radio" id="first" name="seating" value="5" checked>
+    <label for="first">5:00</label><br>
+    <input type="radio" id="second" name="seating" value="6">
+    <label for="second">6:00</label><br>
+    <input type="radio" id="third" name="seating" value="7">
+    <label for="third">7:00</label><br>
+    <input type="radio" id="fourth" name="seating" value="8">
+    <label for="fourth">8:00</label><br>
+    <br>
+    <h2>What would you like to have with us?</h2>
+    <input type="checkbox" id="starters" name="preferences" value="Starters">
+    <label for="starters">Starters</label><br>
+    <input type="checkbox" id="Main" name="preferences" value="Main Course">
+    <label for="Main">Main Course</label><br>
+    <input type="checkbox" id="dessert" name="preferences" value="Dessert">
+    <label for="dessert">Dessert</label><br>
+    <input type="checkbox" id="drinks" name="preferences" value="Drinks">
+    <label for="drinks">Drinks</label><br>
+  </div>
+  <button onclick="Submit_Form()" id="submit">Submit</button>
+  <div id="error-message"></div>
+  <div id="output-message"></div>
+
+  <script>
+    function Validate_Field(inputId, errorMessages) {
+      var input = document.getElementById(inputId);
+      var value = input.value.trim();
+
+      if (value === "") {
+        input.classList.add('error');
+        Update_Error_Message(errorMessages.empty);
+        return false;
+      }
+
+      input.classList.remove('error');
+      return true;
+    }
+
+    function Validate_Name() {
+      var isValid = Validate_Field('name', {
+        empty: "Error: Name is empty."
+      });
+
+      var nameInput = document.getElementById('name');
+      var nameParts = nameInput.value.trim().split(' ');
+
+      if (nameParts.length < 2) {
+        nameInput.classList.add('error');
+        Update_Error_Message("Error: FIRST and LAST NAMES are required.");
+        return false;
+      }
+
+      return isValid;
+    }
+
+    function Validate_PhoneNumber() {
+      var phoneInput = document.getElementById('phone');
+      var phoneValue = phoneInput.value.trim();
+
+      if (phoneValue === "" || isNaN(phoneValue[0]) || phoneValue.length !== 6) {
+        phoneInput.classList.add('error');
+        Update_Error_Message("Error: PHONE NUMBER must start with numbers and have exactly 6 characters.");
+        return false;
+      }
+
+      phoneInput.classList.remove('error');
+      return true;
+    }
+
+    function Update_Error_Message(message) {
+      var errorMessageElement = document.getElementById('error-message');
+      errorMessageElement.innerText = message;
+    }
+
+    function Submit_Form() {
+      var isNameValid = Validate_Name();
+      var isPhoneValid = Validate_PhoneNumber();
+      var selectedTime = document.querySelector('input[name="seating"]:checked');
+      var selectedPreferences = document.querySelectorAll('input[name="preferences"]:checked');
+      var outputMessageElement = document.getElementById('output-message');
+
+      if (isNameValid && isPhoneValid && selectedTime) {
+        var nameInput = document.getElementById('name');
+        var phoneInput = document.getElementById('phone');
+
+        var preferencesText = Array.from(selectedPreferences).map(pref => pref.value).join(', ');
+        outputMessageElement.innerText = "Reservation for: " + nameInput.value + " Phone:(" + phoneInput.value + ") at " + selectedTime.value + ":00 Preferences: " + preferencesText;
+      } else {
+        outputMessageElement.innerText = "";
+      }
+    }
+  </script>
+</body>
+
+</html>
