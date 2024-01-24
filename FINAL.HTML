@@ -69,7 +69,7 @@
     <input type="checkbox" id="drinks" name="preferences" value="Drinks">
     <label for="drinks">Drinks</label><br>
   </div>
-  <button onclick="Submit_Form()" id="submit">Submit</button>
+  <button onclick="Submit_Form_Button()" id="submit">Submit</button>
   <div id="error-message"></div>
   <div id="output-message"></div>
 
@@ -131,7 +131,7 @@
       errorMessageElement.innerText = message;
     }
 
-    function Submit_Form() 
+    function Submit_Form_Button() 
     {
       var isNameValid = Validate_Name();
       var isPhoneValid = Validate_PhoneNumber();
