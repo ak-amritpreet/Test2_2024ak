@@ -3,7 +3,8 @@
 
 <head>
   <style>
-    table {
+    table 
+    {
       text-align: center;
       margin-left: 10%;
       margin-right: 50%;
@@ -11,7 +12,8 @@
     }
 
     input,
-    button {
+    button 
+    {
       padding: 12px 20px;
       margin: 8px 0;
       display: inline-block;
@@ -21,11 +23,13 @@
       font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }
 
-    .error {
+    .error 
+    {
       border: 1px solid red;
     }
 
-    #error-message {
+    #error-message 
+    {
       color: red;
       margin-top: 5px;
     }
@@ -70,11 +74,13 @@
   <div id="output-message"></div>
 
   <script>
-    function Validate_Field(inputId, errorMessages) {
+    function Validate_Field(inputId, errorMessages) 
+    {
       var input = document.getElementById(inputId);
       var value = input.value.trim();
 
-      if (value === "") {
+      if (value === "") 
+      {
         input.classList.add('error');
         Update_Error_Message(errorMessages.empty);
         return false;
@@ -84,15 +90,18 @@
       return true;
     }
 
-    function Validate_Name() {
-      var isValid = Validate_Field('name', {
+    function Validate_Name() 
+    {
+      var isValid = Validate_Field('name', 
+      {
         empty: "Error: Name is empty."
       });
 
       var nameInput = document.getElementById('name');
       var nameParts = nameInput.value.trim().split(' ');
 
-      if (nameParts.length < 2) {
+      if (nameParts.length < 2) 
+      {
         nameInput.classList.add('error');
         Update_Error_Message("Error: FIRST and LAST NAMES are required.");
         return false;
@@ -101,11 +110,13 @@
       return isValid;
     }
 
-    function Validate_PhoneNumber() {
+    function Validate_PhoneNumber() 
+    {
       var phoneInput = document.getElementById('phone');
       var phoneValue = phoneInput.value.trim();
 
-      if (phoneValue === "" || isNaN(phoneValue[0]) || phoneValue.length !== 6) {
+      if (phoneValue === "" || isNaN(phoneValue[0]) || phoneValue.length !== 6) 
+      {
         phoneInput.classList.add('error');
         Update_Error_Message("Error: PHONE NUMBER must start with numbers and have exactly 6 characters.");
         return false;
@@ -120,7 +131,8 @@
       errorMessageElement.innerText = message;
     }
 
-    function Submit_Form() {
+    function Submit_Form() 
+    {
       var isNameValid = Validate_Name();
       var isPhoneValid = Validate_PhoneNumber();
       var selectedTime = document.querySelector('input[name="seating"]:checked');
